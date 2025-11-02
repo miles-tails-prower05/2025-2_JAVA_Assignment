@@ -1,3 +1,5 @@
+// 소스파일 - https://github.com/miles-tails-prower05/2025-2_JAVA_Assignment/blob/main/src/move/MazeCharacter.java
+
 package move;
 
 import java.awt.*;
