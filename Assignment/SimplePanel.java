@@ -34,14 +34,17 @@ public class SimplePanel extends JPanel {
 		this.cards = cards;
 	}
 	
-	public void paint(Graphics g) {
-		int index = TITLE;
+	@Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        int index = TITLE;
 		if (panelName == "게임 오버 화면")
 			index = FAIL;
 		else if (panelName == "게임 클리어 화면")
 			index = SUCCESS;
-		g.drawImage(image[index], 0, 0, null);
-	}
+        g.drawImage(image[index], 0, 0, null);
+    }
 	
 	// 버튼 클릭시 반응
 	private class ClickListener implements ActionListener {

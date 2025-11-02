@@ -1,0 +1,61 @@
+package move;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class MazeCharacter extends TopViewObject {
+	
+	private Container frame;
+	private CardLayout cards;
+	protected int[][] map;
+	protected final int PATH = 0, MINE = 1, CHARACTER = 2, GOAL = 3;
+	
+	public MazeCharacter(Container frame, CardLayout cards, int[][] map, int x, int y, final String imagePath) {
+		super(map, x, y, imagePath);
+		this.map = map;
+		this.image = new Image[4];
+		this.image[PATH     ] = new ImageIcon( imagePath + "path.png" ).getImage();
+		this.image[MINE     ] = new ImageIcon( imagePath + "mine.png" ).getImage();
+		this.image[CHARACTER] = new ImageIcon( imagePath + "character.png" ).getImage();
+		this.image[GOAL     ] = new ImageIcon( imagePath + "goal.png" ).getImage();
+		
+		// 다른 패널로 이동할 수 있도록 준비
+		this.frame = frame;
+		this.cards = cards;
+	}
+	
+	// 지뢰에 닿으면 사망, 목적지에 도착하면 클리어
+	@Override
+	public void move(int directionX, int directionY) {
+		if (map[y+directionY][x+directionX] == MINE) {
+			this.x = 1;
+			this.y = 1;
+			this.directionX = STOP;
+			this.directionY = STOP;
+			cards.show(frame, "2");
+		} else if (map[y+directionY][x+directionX] == GOAL) {
+			this.x = 1;
+			this.y = 1;
+			this.directionX = STOP;
+			this.directionY = STOP;
+			cards.show(frame, "3");
+		} else {
+			super.move(directionX, directionY);
+		}
+	}
+	
+	// 캐릭터와 전체 맵을 출력(골인 지점 추가)
+	@Override
+	public void paint(Graphics g) {
+		for( int y = 0; y <= map.length; y++ ){
+			for( int x = 0; x <= map[0].length; x++ ){
+				int index = MINE;
+				if ( ( this.x == x ) && ( this.y == y ) )
+					index = CHARACTER;
+				else if ( ( minX <= x ) && ( x <= maxX ) && ( minY <= y ) && ( y <= maxY ) )
+					index = map[y][x];
+				g.drawImage( image[index], x*IMGSIZE, y*IMGSIZE, IMGSIZE, IMGSIZE, null );
+			}
+		}
+	}
+}

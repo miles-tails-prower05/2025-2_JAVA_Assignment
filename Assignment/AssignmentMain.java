@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
-import move.TopViewObject;
 import move.ViewPanel;
+import move.MazeCharacter;
 
 public class AssignmentMain {
 	
@@ -9,7 +9,7 @@ public class AssignmentMain {
 		final String imagePath = "C:\\Users\\kunwo\\eclipse-workspace\\JAVA_Assignment\\src\\"; // 원본: C:\\Users\\user\\Downloads\\JAVA-main\\src\\move\\image\\
 		// 미로 맵을 2차원 배열로 초기화
 		int[][] map = { { 1,1,1,1,1,1,1 },
-		                { 1,0,0,1,0,0,1 },
+		                { 1,0,0,1,0,3,1 },
 		                { 1,1,0,1,0,1,1 },
 		                { 1,0,0,1,0,0,1 },
 		                { 1,0,1,1,1,0,1 },
@@ -32,7 +32,7 @@ public class AssignmentMain {
 		for( int i = 0; i < 3; i++ ) {
 			frame.add( new SimplePanel(frame.getContentPane(), cards, panels[i], imagePath + "image\\"), panels[i][0] );
 		}
-		frame.add(new ViewPanel(new TopViewObject(map, 1, 1, imagePath + "move\\image\\")), panels[3][0] );
+		frame.add(new ViewPanel(new MazeCharacter(frame.getContentPane(), cards, map, 1, 1, imagePath + "move\\image\\")), panels[3][0] );
 		frame.setPreferredSize(new Dimension(1280,720));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
