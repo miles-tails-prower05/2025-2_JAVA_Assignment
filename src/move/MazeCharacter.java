@@ -1,14 +1,16 @@
 package move;
 
 import java.awt.*;
+import java.util.Arrays;
 import javax.swing.*;
 
 public class MazeCharacter extends TopViewObject {
 	
 	private Container frame;
 	private CardLayout cards;
+	private String mineWarning;
 	protected int[][] map;
-	protected final int PATH = 0, MINE = 1, CHARACTER = 2, GOAL = 3;
+	protected final int PATH = 0, MINE = 1, CHARACTER = 2, GOAL = 3, LEFT = -1, RIGHT = 1, UP = -1, DOWN = 1;
 	
 	public MazeCharacter(Container frame, CardLayout cards, int[][] map, int x, int y, final String imagePath) {
 		super(map, x, y, imagePath);
@@ -19,9 +21,34 @@ public class MazeCharacter extends TopViewObject {
 		this.image[CHARACTER] = new ImageIcon( imagePath + "character.png" ).getImage();
 		this.image[GOAL     ] = new ImageIcon( imagePath + "goal.png" ).getImage();
 		
+		
+		
 		// 다른 패널로 이동할 수 있도록 준비
 		this.frame = frame;
 		this.cards = cards;
+	}
+	
+	// 주변의 지뢰 탐색
+	public int searchMine() {
+		int count = 0;
+		
+		// 탐색 영역 설정
+		int[][] searchArea = new int[4][2];
+		for (int i = 0; i < searchArea.length; i++) {
+		    searchArea[i] = new int[]{this.x, this.y};
+		}
+		searchArea[0][0] = ( this.x + LEFT <= minX ) ? minX : this.x + LEFT;
+		searchArea[1][0] = ( this.x + RIGHT >= maxX ) ? maxX : this.x + RIGHT;
+		searchArea[2][1] = ( this.y + UP <= minY ) ? minY : this.y + UP;
+		searchArea[3][1] = ( this.y + DOWN >= maxY ) ? maxY : this.y + DOWN;
+		
+		// 탐색 후 갯수 세기
+		for (int i = 0; i < searchArea.length; i++) {
+			if (map[searchArea[i][1]][searchArea[i][0]] == MINE)
+				count++;
+		}
+		
+		return count;
 	}
 	
 	// 지뢰에 닿으면 사망, 목적지에 도착하면 클리어

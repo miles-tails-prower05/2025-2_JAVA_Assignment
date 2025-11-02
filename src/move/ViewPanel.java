@@ -10,10 +10,17 @@ import javax.swing.*;
 // 뷰 패널
 public class ViewPanel extends JPanel
 {
-	protected ObjectByKey character;
+	protected MazeCharacter character;
 	protected Timer timer;
+	protected JLabel label;
 
-	public ViewPanel( ObjectByKey character ){
+	public ViewPanel( MazeCharacter character ){
+		setLayout(new BorderLayout());
+		label = new JLabel();
+		label.setFont( new Font( "굴림", Font.BOLD, 17 ) );
+		//label.setBounds(800, 703, 500, 20);
+		add(label, BorderLayout.SOUTH);
+		
 		// 키리스너에 방향키로 이동하는 캐릭터를 등록
 		this.character = character;
 		addKeyListener( character );
@@ -35,6 +42,7 @@ public class ViewPanel extends JPanel
 	// 최신 정보 업데이트
 	protected void update() {
 		character.move();
+		label.setText("주변에 " + character.searchMine() + "개의 지뢰가 있습니다.");
 	}
 
 	// 화면 출력
