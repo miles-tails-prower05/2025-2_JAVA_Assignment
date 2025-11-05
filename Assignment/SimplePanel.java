@@ -28,7 +28,7 @@ public class SimplePanel extends JPanel {
 		// 클릭하면 반응하는 버튼을 추가
 		button = new JButton(buttonLabel);
 		button.addActionListener(new ClickListener());
-		button.setBounds(900, 500, 200, 50);
+		button.setBounds(850, 470, 250, 70);
 		add(button);
 		
 		// 다음 패널로 이동할 수 있도록 준비

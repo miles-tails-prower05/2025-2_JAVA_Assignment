@@ -83,7 +83,7 @@ public class MazeCharacter extends TopViewObject {
 					index = CHARACTER;
 				else if ( ( minX <= x ) && ( x <= maxX ) && ( minY <= y ) && ( y <= maxY ) )
 					index = map[y][x];
-				g.drawImage( image[index], x*IMGSIZE, y*IMGSIZE, IMGSIZE, IMGSIZE, null );
+				g.drawImage( image[index], x*IMGSIZE, y*IMGSIZE+60, IMGSIZE, IMGSIZE, null );
 			}
 		}
 	}
