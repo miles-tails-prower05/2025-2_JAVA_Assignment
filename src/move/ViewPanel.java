@@ -16,7 +16,7 @@ public class ViewPanel extends JPanel
 	public ViewPanel( MazeCharacter character ){
 		setLayout(new BorderLayout());
 		label = new JLabel();
-		label.setFont( new Font( "굴림", Font.BOLD, 30 ) );
+		label.setFont( new Font( "굴림", Font.BOLD, 17 ) );
 		//label.setBounds(800, 703, 500, 20);
 		add(label, BorderLayout.SOUTH);
 		
